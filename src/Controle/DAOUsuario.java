@@ -8,36 +8,30 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import Modelo.Usuario;
+import Controle.Conexao;
 
 public class DAOUsuario {
     private Connection con;
     private PreparedStatement qry;
     
-    public void salvar(Cliente cliente){
-        String sql="insert into cliente"
-                + "(Cod_Cliente,Nome,Sexo,Data_Nasc,RG,CPF,Telefone,Endereco,CEP,Bairro,Cidade,Estado) values(?,?,?,?,?,?,?,?,?,?,?,?)";
-        con = conexao.getconexao();
+    public void salvar(Usuario usuario){
+        String sql="INSERT INTO USUARIO"
+                + "(LOGIN,NOME,SENHA,STATUS,PERFIL) values(?,?,?,?,?)";
+        con = Conexao.getconexao();
         try{
             qry = con.prepareStatement(sql);
-            qry.setInt(1, cliente.getCod_Cliente());
-            qry.setString(2, cliente.getNome());
-            qry.setString(3, cliente.getSexo());
-            qry.setDate(4, new java.sql.Date(
-                        cliente.getData_Nasc().getTimeInMillis()));
-            qry.setString(5, cliente.getRG());
-            qry.setString(6, cliente.getCPF());
-            qry.setString(7, cliente.getTelefone());
-            qry.setString(8, cliente.getEndereco());
-            qry.setString(9, cliente.getCEP());
-            qry.setString(10, cliente.getBairro());
-            qry.setString(11, cliente.getCidade());
-            qry.setString(12, cliente.getEstado());
+            qry.setString(1, usuario.getLogin());
+            qry.setString(2, usuario.getNome());
+            qry.setString(3, usuario.getSenha());
+            qry.setString(4, usuario.getStatus());
+            qry.setString(5, usuario.getPerfil());
             qry.execute();
     }   catch (SQLException ex) {
-            Logger.getLogger(DAOCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    /*
     public void excluir(String num){
         String sql="delete from Cliente" + " where Cod_Cliente = " + num;
         con = conexao.getconexao();
@@ -97,5 +91,5 @@ public class DAOUsuario {
         }
         return null;
         
-    }
+    }*/
 }
