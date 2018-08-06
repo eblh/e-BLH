@@ -3,10 +3,13 @@ package Visão;
 import java.awt.FlowLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.text.html.HTML;
-import sun.security.util.Length;
-import Controle.Conexao;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
+import Controle.Conexao;
+import Modelo.TratamentoTXT;
 
 public class frmCadUsuario extends javax.swing.JDialog {
     private ButtonGroup grpSex;
@@ -24,6 +27,11 @@ public class frmCadUsuario extends javax.swing.JDialog {
         pnlUsuarioStatus.setLayout(new FlowLayout());
         pnlUsuarioStatus.add(jrbUsuarioAtivo);
         pnlUsuarioStatus.add(jrbUsuarioInativo);
+        
+        //Limitando insesão no TXT
+        //txtUsuarioUsuario.setDocument(new TratamentoTXT(10,"[aA-zZ]"));//APENAS 10 NÚMEROS
+        txtUsuarioUsuario.setDocument(new TratamentoTXT(15));//APENAS 15 LETRAS
+        txtUsuarioNome.setDocument(new TratamentoTXT(45));//APENAS 45 LETRAS
     }
 
     @SuppressWarnings("unchecked")
@@ -48,7 +56,7 @@ public class frmCadUsuario extends javax.swing.JDialog {
         lblUsuarioConfSenha = new javax.swing.JLabel();
         txtUsuarioConfSenha = new javax.swing.JTextField();
         lblUsuarioUsuario = new javax.swing.JLabel();
-        txtUsuarioUsuario = new javax.swing.JTextField(10);
+        txtUsuarioUsuario = new javax.swing.JTextField();
         txtUsuarioNome = new javax.swing.JTextField();
         lblUsuarioNome = new javax.swing.JLabel();
         pnlUsuarioStatus = new javax.swing.JPanel();
