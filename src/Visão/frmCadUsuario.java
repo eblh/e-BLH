@@ -48,7 +48,7 @@ public class frmCadUsuario extends javax.swing.JDialog {
         lblUsuarioConfSenha = new javax.swing.JLabel();
         txtUsuarioConfSenha = new javax.swing.JTextField();
         lblUsuarioUsuario = new javax.swing.JLabel();
-        txtUsuarioUsuario = new javax.swing.JTextField();
+        txtUsuarioUsuario = new javax.swing.JTextField(10);
         txtUsuarioNome = new javax.swing.JTextField();
         lblUsuarioNome = new javax.swing.JLabel();
         pnlUsuarioStatus = new javax.swing.JPanel();

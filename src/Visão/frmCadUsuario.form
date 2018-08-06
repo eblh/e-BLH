@@ -346,6 +346,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtUsuarioUsuario">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTextField(10)"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="txtUsuarioNome">
             </Component>
