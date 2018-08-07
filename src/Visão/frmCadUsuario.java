@@ -28,10 +28,13 @@ public class frmCadUsuario extends javax.swing.JDialog {
         pnlUsuarioStatus.add(jrbUsuarioAtivo);
         pnlUsuarioStatus.add(jrbUsuarioInativo);
         
-        //Limitando insesão no TXT
-        //txtUsuarioUsuario.setDocument(new TratamentoTXT(10,"[aA-zZ]"));//APENAS 10 NÚMEROS
-        txtUsuarioUsuario.setDocument(new TratamentoTXT(15));//APENAS 15 LETRAS
-        txtUsuarioNome.setDocument(new TratamentoTXT(45));//APENAS 45 LETRAS
+        /*Limitando e tratando a insersão no JTextField
+          - [^.....] = Apenas o que colocar ([^a-z]=Apenas Letras Minúsculas / [a-z]=Exceto Letras Minúsculas)
+          - [^aA-zZ] = Apenas letras maiúsculas e minúsculas   */
+        txtUsuarioUsuario.setDocument(new TratamentoTXT(15,"[^aA-zZ]"));//APENAS 15 LETRAS
+        txtUsuarioNome.setDocument(new TratamentoTXT(45,"[^aA-zZ]"));//APENAS 45 LETRAS
+        txtUsuarioSenha.setDocument(new TratamentoTXT(15,""));
+        txtUsuarioConfSenha.setDocument(new TratamentoTXT(15,""));
     }
 
     @SuppressWarnings("unchecked")

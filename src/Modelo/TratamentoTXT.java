@@ -13,7 +13,9 @@ public class TratamentoTXT extends PlainDocument{
         if(maxLen<=0)
             throw new IllegalArgumentException("Especifique a Quantidade!");
         qtdeMax = maxLen;
+        tipo = Tipo;
     }
+    
     @Override
     public void insertString(int offset, String str, AttributeSet attr)
     throws BadLocationException{
@@ -21,7 +23,7 @@ public class TratamentoTXT extends PlainDocument{
             return;
         int totalQuantia=(getLength()+str.length());
         if (totalQuantia<=qtdeMax){
-            super.insertString(offset, str.replaceAll("[^aA-zZ]",""), attr);//[^...] = Apenas o que colocar [a-z] = Exceto letras minúsculas
+            super.insertString(offset, str.replaceAll(tipo,""), attr);
             return;
         }
         String nova = str.substring(0, getLength()-qtdeMax);
