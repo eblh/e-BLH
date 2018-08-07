@@ -7,7 +7,8 @@ import javax.swing.text.PlainDocument;
 //MÉTODO REGRA PARA INSERIR OS DADOS NO TEXTFIELD
 public class TratamentoTXT extends PlainDocument{
     private int qtdeMax;
-    public TratamentoTXT(int maxLen){
+    private String tipo = "";
+    public TratamentoTXT(int maxLen, String Tipo){
         super();
         if(maxLen<=0)
             throw new IllegalArgumentException("Especifique a Quantidade!");
