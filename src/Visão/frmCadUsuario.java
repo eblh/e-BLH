@@ -9,10 +9,14 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 import Controle.Conexao;
+import Controle.DAOUsuario;
 import Modelo.TratamentoTXT;
+import Modelo.Usuario;
+import javax.swing.JOptionPane;
 
 public class frmCadUsuario extends javax.swing.JDialog {
     private ButtonGroup grpSex;
+    private boolean press_edit = false;
 
     public frmCadUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -32,9 +36,75 @@ public class frmCadUsuario extends javax.swing.JDialog {
           - [^.....] = Apenas o que colocar ([^a-z]=Apenas Letras Minúsculas / [a-z]=Exceto Letras Minúsculas)
           - [^aA-zZ] = Apenas letras maiúsculas e minúsculas   */
         txtUsuarioUsuario.setDocument(new TratamentoTXT(15,"[^aA-zZ]"));//APENAS 15 LETRAS
-        txtUsuarioNome.setDocument(new TratamentoTXT(45,"[^aA-zZ]"));//APENAS 45 LETRAS
+        txtUsuarioNome.setDocument(new TratamentoTXT(45,""));
         txtUsuarioSenha.setDocument(new TratamentoTXT(15,""));
         txtUsuarioConfSenha.setDocument(new TratamentoTXT(15,""));
+    }
+    
+    private void LimparCampos(){
+        txtUsuarioUsuario.setText("");
+        txtUsuarioNome.setText("");
+        txtUsuarioConfSenha.setText("");
+        cbbUsuarioPerfil.setSelectedIndex(0);
+    }
+    
+    private void HabilitarBotoes(){
+        btnUsuarioInserir.setEnabled(true);
+        btnUsuarioEditar.setEnabled(false);
+        btnUsuarioExcluir.setEnabled(false);
+        btnUsuarioPesquisar.setEnabled(true);
+        btnUsuarioDesfazer.setEnabled(false);
+        btnUsuarioSalvar.setEnabled(false);
+        btnUsuarioSair.setEnabled(true);
+    }
+    
+    public void DesabilitarBotoes(){
+        btnUsuarioInserir.setEnabled(false);
+        btnUsuarioEditar.setEnabled(false);
+        btnUsuarioExcluir.setEnabled(false);
+        btnUsuarioPesquisar.setEnabled(false);
+        btnUsuarioDesfazer.setEnabled(true);
+        btnUsuarioSalvar.setEnabled(true);
+        btnUsuarioSair.setEnabled(false);
+    }
+        
+    private void HabilitarCampos(){
+        txtUsuarioUsuario.setEnabled(true);
+        txtUsuarioNome.setEnabled(true);
+        txtUsuarioSenha.setEnabled(true);
+        txtUsuarioConfSenha.setEnabled(true);
+        jrbUsuarioAtivo.setEnabled(true);
+        jrbUsuarioInativo.setEnabled(true);
+        cbbUsuarioPerfil.setEnabled(true);
+    }
+    
+    private void DesabilitarCampos(){
+        txtUsuarioUsuario.setEnabled(false);
+        txtUsuarioNome.setEnabled(false);
+        txtUsuarioSenha.setEnabled(false);
+        txtUsuarioConfSenha.setEnabled(false);
+        jrbUsuarioAtivo.setEnabled(false);
+        jrbUsuarioInativo.setEnabled(false);
+        cbbUsuarioPerfil.setEnabled(false);
+    }
+    
+    private Usuario getDados(){
+        Usuario u = new Usuario();
+        u.setUsuario(txtUsuarioUsuario.getText());
+        u.setNome(txtUsuarioNome.getText());
+        u.setSenha(txtUsuarioSenha.getText());
+        if (jrbUsuarioAtivo.isSelected()){
+            u.setStatus("Ativo");
+        }else{
+            u.setStatus("Inativo");
+        }
+        u.setPerfil(cbbUsuarioPerfil.getSelectedItem().toString());
+        return u;
+    }
+    
+    private void setDados(Usuario u){
+        txtUsuarioUsuario.setText(u.getUsuario());
+        txtUsuarioNome.setText(u.getNome());
     }
 
     @SuppressWarnings("unchecked")
@@ -367,32 +437,34 @@ public class frmCadUsuario extends javax.swing.JDialog {
     }//GEN-LAST:event_btnUsuarioSairActionPerformed
 
     private void btnUsuarioSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioSalvarActionPerformed
-        /*DAOCliente qry = new DAOCliente();
-        if (press_edit == false){ //SALVA
-            if(txtCodigo.getText().trim().isEmpty()){
-                JOptionPane.showMessageDialog(null, "Código é obrigatório!!!","Aviso",JOptionPane.WHEN_IN_FOCUSED_WINDOW);
-                txtCodigo.requestFocus();
-            }else if(txtNome.getText().trim().isEmpty()){
-                JOptionPane.showMessageDialog(null, "Nome é obrigatório!!!","Aviso",JOptionPane.WHEN_IN_FOCUSED_WINDOW);
-                txtNome.requestFocus();
-            }else if(txtDataNasc.getText().equals("  /  /    ")){
-                JOptionPane.showMessageDialog(null, "A data é um campo obrigatório!", "Aviso", JOptionPane.WARNING_MESSAGE);
-                txtDataNasc.requestFocus();
+        DAOUsuario qry = new DAOUsuario();
+        if (press_edit == false){ //SALVAR
+            if(txtUsuarioUsuario.getText().trim().isEmpty()){ //Se o campo estiver vazio | trim é o tamanho
+                JOptionPane.showMessageDialog(null, "O Login é um campo obrigatório!","Aviso",JOptionPane.WHEN_IN_FOCUSED_WINDOW);
+                txtUsuarioUsuario.requestFocus();
+            }else if(txtUsuarioNome.getText().trim().isEmpty()){
+                JOptionPane.showMessageDialog(null, "Nome é um campo obrigatório!","Aviso",JOptionPane.WHEN_IN_FOCUSED_WINDOW);
+                txtUsuarioNome.requestFocus();
+            }else if(txtUsuarioSenha.getText().trim().isEmpty()){
+                JOptionPane.showMessageDialog(null, "A Senha é um campo obrigatório!", "Aviso", JOptionPane.WARNING_MESSAGE);
+                txtUsuarioSenha.requestFocus();
+            //}else if(txtUsuarioConfSenha.getText() != txtUsuarioSenha.getText()){
+            //    JOptionPane.showMessageDialog(null, "As senhas são devergentes!", "Aviso", JOptionPane.WARNING_MESSAGE);
             }else{
                 qry.salvar(this.getDados());
-                JOptionPane.showMessageDialog(null, "Cliente inserido com sucesso!!!");
+                JOptionPane.showMessageDialog(null, "Usuário inserido com sucesso!!!");
                 this.LimparCampos();
                 HabilitarBotoes();
                 DesabilitarCampos();
             }
-        }else{  //EDITA
-            qry.editar(this.getDados(), txtCodigo.getText());
+        }else{  //EDITAR
+            qry.editar(this.getDados(), txtUsuarioUsuario.getText());
             JOptionPane.showMessageDialog(null, "Cliente editado com sucesso!!!");
             press_edit = false;
             this.LimparCampos();
             HabilitarBotoes();
             DesabilitarCampos();
-        }*/
+        }
     }//GEN-LAST:event_btnUsuarioSalvarActionPerformed
 
     private void btnUsuarioDesfazerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioDesfazerActionPerformed

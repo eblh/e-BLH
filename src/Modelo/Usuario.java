@@ -1,18 +1,18 @@
 package Modelo;
 
 public class Usuario {
-    private String Login;
+    private String Usuario;
     private String Nome;
     private String Senha;
     private String Status;
     private String Perfil;
 
-    public String getLogin() {
-        return Login;
+    public String getUsuario() {
+        return Usuario;
     }
 
-    public void setLogin(String Login) {
-        this.Login = Login;
+    public void setUsuario(String Usuario) {
+        this.Usuario = Usuario;
     }
 
     public String getNome() {

@@ -21,7 +21,35 @@ public class DAOUsuario {
         con = Conexao.getconexao();
         try{
             qry = con.prepareStatement(sql);
-            qry.setString(1, usuario.getLogin());
+            qry.setString(1, usuario.getUsuario());
+            qry.setString(2, usuario.getNome());
+            qry.setString(3, usuario.getSenha());
+            qry.setString(4, usuario.getStatus());
+            qry.setString(5, usuario.getPerfil());
+            qry.execute();
+    }   catch (SQLException ex) {
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+   
+    public void excluir(String login){
+        String sql="DELETE FROM USUARIO" + " WHERE LOGIN = " + login;
+        con = Conexao.getconexao();
+        try{
+            qry = con.prepareStatement(sql);
+            //qry.setString(1,num);
+            qry.execute();
+    }   catch (SQLException ex) {
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void editar(Usuario usuario, String login){
+        String sql="UPDATE USUARIO set LOGIN = ?, NOME = ?, SENHA = ?, STATUS = ?, PERFIL = ? WHERE LOGIN = " + login ;
+        con = Conexao.getconexao();
+        try{
+            qry = con.prepareStatement(sql);
+            qry.setString(1, usuario.getUsuario());
             qry.setString(2, usuario.getNome());
             qry.setString(3, usuario.getSenha());
             qry.setString(4, usuario.getStatus());
@@ -32,42 +60,6 @@ public class DAOUsuario {
         }
     }
     /*
-    public void excluir(String num){
-        String sql="delete from Cliente" + " where Cod_Cliente = " + num;
-        con = conexao.getconexao();
-        try{
-            qry = con.prepareStatement(sql);
-            //qry.setString(1,num);
-            qry.execute();
-    }   catch (SQLException ex) {
-            Logger.getLogger(DAOCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void editar(Cliente cliente, String num){
-        String sql="update Cliente set Cod_Cliente = ?, Nome = ?, Sexo = ?, Data_Nasc = ?, RG = ?, CPF = ?, Telefone = ?, Endereco = ?, CEP = ?, Bairro = ?, Cidade = ?, Estado = ? where Cod_Cliente = " + num ;
-        con = conexao.getconexao();
-        try{
-            qry = con.prepareStatement(sql);
-            qry.setInt(1, cliente.getCod_Cliente());
-            qry.setString(2, cliente.getNome());
-            qry.setString(3, cliente.getSexo());
-            qry.setDate(4, new java.sql.Date(
-                        cliente.getData_Nasc().getTimeInMillis()));
-            qry.setString(5, cliente.getRG());
-            qry.setString(6, cliente.getCPF());
-            qry.setString(7, cliente.getTelefone());
-            qry.setString(8, cliente.getEndereco());
-            qry.setString(9, cliente.getCEP());
-            qry.setString(10, cliente.getBairro());
-            qry.setString(11, cliente.getCidade());
-            qry.setString(12, cliente.getEstado());
-            qry.execute();
-    }   catch (SQLException ex) {
-            Logger.getLogger(DAOCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
     public ArrayList<Cliente> ListarTodosClientes(){
         String sql = "select Cod_Cliente, Nome, Data_Nasc, Telefone from Cliente";
         con = conexao.getconexao();
