@@ -10,7 +10,7 @@ public class Conexao {
     //Chamar o Driver
     drive = "com.mysql.jdbc.Driver", 
     //Informações referente o BD
-    url = "jdbc:mysql://localhost/ion",
+    url = "jdbc:mysql://localhost/e-blh",
     usuario = "root",
     senha = "1203";
     public static Connection getconexao(){
