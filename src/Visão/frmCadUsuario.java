@@ -440,26 +440,26 @@ public class frmCadUsuario extends javax.swing.JDialog {
         DAOUsuario qry = new DAOUsuario();
         if (press_edit == false){ //SALVAR
             if(txtUsuarioUsuario.getText().trim().isEmpty()){ //Se o campo estiver vazio | trim é o tamanho
-                JOptionPane.showMessageDialog(null, "O Login é um campo obrigatório!","Aviso",JOptionPane.WHEN_IN_FOCUSED_WINDOW);
+                JOptionPane.showMessageDialog(this, "O Login é um campo obrigatório!","Aviso",JOptionPane.WHEN_IN_FOCUSED_WINDOW);
                 txtUsuarioUsuario.requestFocus();
             }else if(txtUsuarioNome.getText().trim().isEmpty()){
-                JOptionPane.showMessageDialog(null, "Nome é um campo obrigatório!","Aviso",JOptionPane.WHEN_IN_FOCUSED_WINDOW);
+                JOptionPane.showMessageDialog(this, "Nome é um campo obrigatório!","Aviso",JOptionPane.WHEN_IN_FOCUSED_WINDOW);
                 txtUsuarioNome.requestFocus();
             }else if(txtUsuarioSenha.getText().trim().isEmpty()){
-                JOptionPane.showMessageDialog(null, "A Senha é um campo obrigatório!", "Aviso", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "A Senha é um campo obrigatório!", "Aviso", JOptionPane.WARNING_MESSAGE);
                 txtUsuarioSenha.requestFocus();
             //}else if(txtUsuarioConfSenha.getText() != txtUsuarioSenha.getText()){
             //    JOptionPane.showMessageDialog(null, "As senhas são devergentes!", "Aviso", JOptionPane.WARNING_MESSAGE);
             }else{
                 qry.salvar(this.getDados());
-                JOptionPane.showMessageDialog(null, "Usuário inserido com sucesso!!!");
+                JOptionPane.showMessageDialog(this, "Usuário inserido com sucesso!!!");
                 this.LimparCampos();
                 HabilitarBotoes();
                 DesabilitarCampos();
             }
         }else{  //EDITAR
             qry.editar(this.getDados(), txtUsuarioUsuario.getText());
-            JOptionPane.showMessageDialog(null, "Cliente editado com sucesso!!!");
+            JOptionPane.showMessageDialog(this, "Usuário editado com sucesso!!!");
             press_edit = false;
             this.LimparCampos();
             HabilitarBotoes();
