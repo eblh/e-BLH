@@ -1,49 +1,49 @@
 package Modelo;
 
 public class Usuario {
-    private String Usuario;
-    private String Nome;
-    private String Senha;
-    private String Status;
-    private String Perfil;
+    private String usuario;
+    private String nome;
+    private String senha;
+    private String status;
+    private String perfil;
 
     public String getUsuario() {
-        return Usuario;
+        return usuario;
     }
 
-    public void setUsuario(String Usuario) {
-        this.Usuario = Usuario;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public String getNome() {
-        return Nome;
+        return nome;
     }
 
-    public void setNome(String Nome) {
-        this.Nome = Nome;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getSenha() {
-        return Senha;
+        return senha;
     }
 
-    public void setSenha(String Senha) {
-        this.Senha = Senha;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
-    public void setStatus(String Status) {
-        this.Status = Status;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getPerfil() {
-        return Perfil;
+        return perfil;
     }
 
     public void setPerfil(String Perfil) {
-        this.Perfil = Perfil;
+        this.perfil = perfil;
     }
 }
